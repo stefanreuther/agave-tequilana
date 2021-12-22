@@ -44,6 +44,7 @@ static const struct Definition CONFIG_DEFINITION[] = {
     CONFIG(Int16, CostAdditive),
     CONFIG(Int16, CostMultiplier),
     CONFIG(Int16, CostPower),
+    CONFIG(Int16, MinScore),
     CONFIG(Int16, VoteTurn),
     CONFIG(Int16, FinishPercent),
     CONFIG(Int16, FinishScore),
@@ -137,6 +138,7 @@ void Config_Init(struct Config* p)
     p->CostAdditive = 0;
     p->CostMultiplier = 0;
     p->CostPower = 0;
+    p->MinScore = -32768;
 
     // Voting
     p->VoteTurn = 65;

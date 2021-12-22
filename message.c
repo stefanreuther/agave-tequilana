@@ -215,6 +215,12 @@ void Message_CactusFailed_CactusLimit(RaceType_Def to, Uns16 planetId, int cactu
     Message_SendTemplate(to, GetLanguageForPlayer(to)->Message_CactusFailed_CactusLimit, args, 2);
 }
 
+void Message_CactusFailed_MinScore(RaceType_Def to, Uns16 planetId)
+{
+    Int32 args[] = { planetId };
+    Message_SendTemplate(to, GetLanguageForPlayer(to)->Message_CactusFailed_MinScore, args, 1);
+}
+
 void Message_VoteIgnored_Turn(RaceType_Def to)
 {
     Message_SendTemplate(to, GetLanguageForPlayer(to)->Message_VoteIgnored_Turn, 0, 0);

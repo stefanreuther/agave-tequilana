@@ -139,6 +139,15 @@ const struct Language ENGLISH = {
      "Cannot build a new cactus:\n"
      "You can only build %1d cactuses.\n"),
 
+    // Message_CactusFailed_MinScore
+    ("(-p%0I)<<< Cactus Not Built >>>\n"
+     "\n"
+     "FROM: %0P\n"
+     "  Planet %0d\n"
+     "\n"
+     "Cannot build a new cactus:\n"
+     "Your score is too low.\n"),
+
     // Message_VoteIgnored_Turn
     ("(-k0000)<<< Cactus Referee >>>\n\n"
      "Your vote to end the game has been\n"

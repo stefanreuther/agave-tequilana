@@ -157,6 +157,11 @@ void Message_CactusFailed_ClansRequired(RaceType_Def to, Uns16 planetId, int cla
     @param cactusLimit Limit*/
 void Message_CactusFailed_CactusLimit(RaceType_Def to, Uns16 planetId, int cactusLimit);
 
+/** Report failure to build cactus: below minimum score.
+    @param to        Player
+    @param planetId  Planet Id */
+void Message_CactusFailed_MinScore(RaceType_Def to, Uns16 planetId);
+
 /** Report ignored vote: minimum turn not reached.
     @param to Player */
 void Message_VoteIgnored_Turn(RaceType_Def to);

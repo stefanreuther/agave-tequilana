@@ -273,6 +273,18 @@ Configuration
   under other players' control.
 
 
++ `MinScore` (integer, default: -32768)
+
+  Minimum permitted score. If a cactus has a cost greater than 0, it
+  is not allowed to reduce the score below this value.
+
+  This option should be configured to a negative value. Because scores
+  start out as 0, players need some credit to build the first cactus.
+
+  Losing score from, for example, `CaptureScore`, is not limited and
+  can reduce the score below the limit.
+
+
 ### Voting
 
 + `VoteTurn` (integer, default: 65)

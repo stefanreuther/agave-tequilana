@@ -34,6 +34,7 @@ struct Language {
     const char* Message_CactusFailed_NeedBase;
     const char* Message_CactusFailed_ClansRequired;
     const char* Message_CactusFailed_CactusLimit;
+    const char* Message_CactusFailed_MinScore;
 
     // Voting
     const char* Message_VoteIgnored_Turn;

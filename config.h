@@ -30,6 +30,7 @@ struct Config {
     Int16 CostAdditive;
     Int16 CostMultiplier;
     Int16 CostPower;
+    Int16 MinScore;
 
     // Voting
     Int16 VoteTurn;

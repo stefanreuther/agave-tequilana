@@ -23,7 +23,8 @@ enum Result {
     Fail_CannotRebuild,
     Fail_NeedBase,
     Fail_ClansRequired,
-    Fail_CactusLimit
+    Fail_CactusLimit,
+    Fail_MinScore
 };
 
 /* Compute a * b^exp. */
@@ -89,6 +90,16 @@ static enum Result ProcessBuildRequest(struct State* pState, const struct Config
     // Compute cost. Must be done before State_CreateCactus() to use correct count.
     const int cost = CactusCost(pState, pConfig, race, buildingOverStump);
 
+    // Might exceed limit
+    // Special case for MinScore <= -32768, so if option is not set, it has no effect.
+    Int16 currentScore = State_Score(pState, race);
+    if (pConfig->MinScore > -32768
+        && (currentScore < pConfig->MinScore
+            || cost > (Int32)currentScore - pConfig->MinScore))
+    {
+        return Fail_MinScore;
+    }
+
     // All conditions pass, do it
     Info("\t(+) build cactus: planet %d, player %d, cost %d", planetId, race, cost);
     State_CreateCactus(pState, planetId, race);
@@ -148,6 +159,9 @@ void ProcessBuildRequests(struct State* pState, const struct Config* pConfig)
                 break;
              case Fail_CactusLimit:
                 Message_CactusFailed_CactusLimit(owner, planetId, pConfig->CactusLimit);
+                break;
+             case Fail_MinScore:
+                Message_CactusFailed_MinScore(owner, planetId);
                 break;
             }
         }

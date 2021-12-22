@@ -143,6 +143,15 @@ const struct Language GERMAN = {
      "Kann keinen Kaktus errichten:\n"
      "Du kannst nur %1d Kakteen errichten.\n"),
 
+    // Message_CactusFailed_MinScore
+    ("(-p%0I)<<< Kaktus nicht gebaut >>>\n"
+     "\n"
+     "VON: %0P\n"
+     "  Planet %0d\n"
+     "\n"
+     "Kann keinen Kaktus errichten:\n"
+     "Du hast nicht ausreichend Punkte.\n"),
+
     // Message_VoteIgnored_Turn
     ("(-k0000)<<< Cactus Referee >>>\n\n"
      "Deine Stimme fuer das Spiel-Ende wurde\n"
