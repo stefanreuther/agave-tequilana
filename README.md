@@ -51,6 +51,19 @@ Agave Tequilana will store state in a file `cactus.hst` in the game
 directory. This file should be compatible with Tequila War / Cactus.
 
 
+### c2host integration
+
+This add-on can generate a `c2score.txt` and `c2ref.txt` file to
+report the current score and voting status, respectively. This way,
+when run under c2host, the voting feature will actually end the game.
+
+Run it as
+
+    cactus -i path/to/game
+
+to enable this feature.
+
+
 Colophon
 --------
 

@@ -296,7 +296,15 @@ static void ReportScores(RaceType_Def to,
     Message_Send(&m, to);
 }
 
-void ProcessVotes(struct State* pState, const struct Config* pConfig)
+static void SaveRefereeFile(FILE* fp, const struct VoteItem* votes, size_t numPlayers, Boolean isFinished)
+{
+    for (size_t i = 0; i < numPlayers; ++i) {
+        fprintf(fp, "rank%d=%d\n", (int)votes[i].Player, (int) (i+1));
+    }
+    fprintf(fp, "end=%d\n", isFinished ? 1 : 0);
+}
+
+void ProcessVotes(struct State* pState, const struct Config* pConfig, Boolean writeRef)
 {
     struct VoteItem votes[RACE_NR];
     size_t numPlayers = 0;
@@ -358,6 +366,13 @@ void ProcessVotes(struct State* pState, const struct Config* pConfig)
         if (PlayerIsActive(r)) {
             ReportScores(r, pState, votes, numPlayers, totalVotes, yesVotes);
         }
+    }
+
+    // Referee file for c2host
+    if (writeRef) {
+        FILE* fp = OpenOutputFile("c2ref.txt", GAME_DIR_ONLY);
+        SaveRefereeFile(fp, votes, numPlayers, isFinished);
+        fclose(fp);
     }
 }
 
@@ -430,4 +445,17 @@ void SendReports(const struct State* pState, const struct Config* pConfig)
             SendInventoryReport(pState, i);
         }
     }
+}
+
+void SaveScoreFile(const struct State* pState)
+{
+    FILE* fp = OpenOutputFile("c2score.txt", GAME_DIR_ONLY);
+    fprintf(fp, "%% score\n");
+    fprintf(fp, "description=Tequila\n");
+    for (int i = 1; i <= RACE_NR; ++i) {
+        if (PlayerIsActive(i)) {
+            fprintf(fp, "score%d=%d\n", i, (int) State_Score(pState, (RaceType_Def) i));
+        }
+    }
+    fclose(fp);
 }

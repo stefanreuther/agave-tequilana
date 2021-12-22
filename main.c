@@ -36,6 +36,7 @@ static void PrintUsage(FILE* stream, const char* name)
             "MODE is:\n"
             "  -dc     dump config\n"
             "  -ds     dump status\n"
+            "  -i      c2host integration (c2ref.txt, c2score.txt)\n"
             "  --help  this message\n\n"
             "Written in 2021 by Stefan Reuther <streu@gmx.de> for PlanetsCentral\n"
             "Based upon Cactus 2001++ by K.Kopytov, E.Goroh\n",
@@ -76,7 +77,7 @@ static void DoneHostAction()
  *  HostAction mode
  */
 
-static void DoHostAction()
+static void DoHostAction(Boolean integrate)
 {
     struct Config c;
     InitHostAction(&c);
@@ -90,8 +91,11 @@ static void DoHostAction()
     ProcessCommands(pState, &c);
     ProcessBuildRequests(pState, &c);
     ComputeScores(pState, &c);
-    ProcessVotes(pState, &c);
+    ProcessVotes(pState, &c, integrate);
     SendReports(pState, &c);
+    if (integrate) {
+        SaveScoreFile(pState);
+    }
 
     State_Save(pState);
     State_Destroy(pState);
@@ -142,6 +146,7 @@ int main(int argc, char** argv)
     // Parse command line
     int i = 1;
     Boolean hasGame = False, hasRoot = False;
+    Boolean integrate = False;
     while (argv[i] != 0) {
         const char* p = argv[i];
         if (*p == '-') {
@@ -153,6 +158,8 @@ int main(int argc, char** argv)
                 mode = DumpConfig;
             } else if (strcmp(p, "ds") == 0) {
                 mode = DumpStatus;
+            } else if (strcmp(p, "i") == 0) {
+                integrate = True;
             } else if (strcmp(p, "help") == 0 || strcmp(p, "h") == 0) {
                 mode = Help;
             } else {
@@ -183,7 +190,7 @@ int main(int argc, char** argv)
 
     switch (mode) {
      case HostAction:
-        DoHostAction();
+        DoHostAction(integrate);
         break;
      case DumpConfig:
         DoDumpConfig();
