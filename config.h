@@ -33,6 +33,7 @@ struct Config {
     Int16 MinScore;
 
     // Voting
+    Boolean EnableFinish;
     Int16 VoteTurn;
     Int16 FinishPercent;
     Int16 FinishScore;

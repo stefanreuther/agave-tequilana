@@ -109,7 +109,8 @@ one of the following statuses:
 Voting Rules
 ------------
 
-Agave Tequilana can be used to determine the end of a game.
+Agave Tequilana can be used to determine the end of a game if enabled
+with `EnableFinish` (default).
 
 Starting at `VoteTurn`, players can vote. Each player's vote is worth
 their number of planets, plus number of cactuses controlled (i.e.,
@@ -289,6 +290,16 @@ Configuration
 
 
 ### Voting
+
++ `EnableFinish` (boolean, default: `True`)
+
+  If enabled, Agave Tequilana can be used to determine the end of a
+  game, either by voting, or by reaching a score goal. The following
+  parameters are only handled if this option is enabled (default).
+
+  When disabled, `vote` commands are silently ignored and the
+  following parameters have no effect.
+
 
 + `VoteTurn` (integer, default: 65)
 

@@ -360,7 +360,10 @@ void ProcessVotes(struct State* pState, const struct Config* pConfig, Boolean wr
             // Count votes
             totalVotes += ourVotes;
             if (State_HasVote(pState, r)) {
-                if (TurnNumber() < pConfig->VoteTurn) {
+                if (!pConfig->EnableFinish) {
+                    // Voting disabled; reset and ignore player's vote.
+                    State_SetVote(pState, r, False);
+                } else if (TurnNumber() < pConfig->VoteTurn) {
                     // Ignore
                     Message_VoteIgnored_Turn(r);
                     Info("\t(-) player %d vote ignored: turn not reached", i);
@@ -386,10 +389,10 @@ void ProcessVotes(struct State* pState, const struct Config* pConfig, Boolean wr
     qsort(votes, numPlayers, sizeof(votes[0]), CompareVotes);
 
     // Determine game end
-    const Boolean isFinished =
-        (votes[0].Score >= pConfig->FinishScore)
-        || (totalVotes > 0
-            && (100*yesVotes) >= (totalVotes*pConfig->FinishPercent));
+    const Boolean isFinished = pConfig->EnableFinish
+        && ((votes[0].Score >= pConfig->FinishScore)
+            || (totalVotes > 0
+                && (100*yesVotes) >= (totalVotes*pConfig->FinishPercent)));
     State_SetFinished(pState, isFinished);
     Info("\tbest score: %d, votes: %d/%d -> %s", (int) votes[0].Score, (int) yesVotes, (int) totalVotes,
          isFinished ? "game FINISHED" : "game proceeds");
@@ -404,7 +407,7 @@ void ProcessVotes(struct State* pState, const struct Config* pConfig, Boolean wr
     }
 
     // Referee file for c2host
-    if (writeRef) {
+    if (writeRef && pConfig->EnableFinish) {
         FILE* fp = OpenOutputFile("c2ref.txt", GAME_DIR_ONLY);
         SaveRefereeFile(fp, votes, numPlayers, isFinished);
         fclose(fp);

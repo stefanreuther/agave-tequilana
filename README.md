@@ -61,7 +61,8 @@ Run it as
 
     cactus -i path/to/game
 
-to enable this feature.
+to enable this feature. `c2ref.txt` is only generated when
+`EnableFinish` is enabled (default).
 
 
 Colophon
