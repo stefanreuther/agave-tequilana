@@ -45,6 +45,11 @@ struct Language {
     const char* SendConfig_Continuation;
 
     const char* Continuation;
+
+    // Scores
+    const char* Score_NumOwnedCactuses;
+    const char* Score_NumBuiltCactuses;
+    const char* Score_Score;
 };
 
 /** Get language for a player.

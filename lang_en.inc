@@ -169,4 +169,13 @@ const struct Language ENGLISH = {
 
     // Continuation
     ("(continued on next page)\n"),
+
+    // Score_NumOwnedCactuses
+    ("Owned Cactuses"),
+
+    // Score_NumBuiltCactuses
+    ("Built Cactuses"),
+
+    // Score_Score
+    ("Tequila Score"),
 };

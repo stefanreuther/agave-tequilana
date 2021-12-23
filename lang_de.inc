@@ -174,4 +174,13 @@ const struct Language GERMAN = {
 
     // Continuation
     ("(weiter auf der naechsten Seite)\n"),
+
+    // Score_NumOwnedCactuses
+    ("Eigene Kakteen"),
+
+    // Score_NumBuiltCactuses
+    ("Errichtete Kakteen"),
+
+    // Score_Score
+    ("Tequila-Score"),
 };

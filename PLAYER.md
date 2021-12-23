@@ -306,4 +306,45 @@ Configuration
 Utility Data Files
 ------------------
 
-Agave Tequilana does not yet generate `utilX.dat` records.
+Agave Tequilana will generate `utilX.dat` records.
+
+
+### Player score (type 51)
+
+This record is defined by PHost to be used for score reports. Agave
+Tequilana sends three copies of it.
+
+    50 BYTEs   Name; player-readable description of this score.
+       WORD    Identifier
+                 16544  Number of owned cactuses
+                 16545  Number of built cactuses
+                 16546  Score
+       WORD    Turns-over-limit required to win, sent as -1.
+       DWORD   Win limit. For the score, same as FinishScore,
+               otherwise, -1 for none.
+    11 DWORDs  Scores for each player. -1 if not known. Negative scores
+               are reported as 0.
+
+
+### Your score (type 16544)
+
+This record is sent every turn and reports your score. It also serves
+as a marker that this add-on is present.
+
+    32 BYTEs   Name and version of add-on, "Agave Tequilana 0.42"
+       WORD    Number of owned cactuses
+       WORD    Number of built cactuses
+       WORD    Score (can be negative)
+       WORD    Vote flag
+
+
+### Cactus (type 16545)
+
+This record is sent every turn, for every cactus you built or own.
+
+    WORD    Planet Id
+    WORD    Type
+             0      Cactus
+             1      Foreign stump (someone else built, you own)
+             2      Exile stump (you built, someone else owns)
+             3      Stump (you built and own)

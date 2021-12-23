@@ -39,6 +39,8 @@ my @SOURCE = qw(
    state.h
    util.c
    util.h
+   utildata.c
+   utildata.h
 );
 compile_static_library('cact', [to_prefix_list($V{IN}, @SOURCE)]);
 

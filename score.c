@@ -10,6 +10,8 @@
 #include "score.h"
 #include "message.h"
 #include "language.h"
+#include "utildata.h"
+#include "util.h"
 
 
 /*
@@ -296,6 +298,38 @@ static void ReportScores(RaceType_Def to,
     Message_Send(&m, to);
 }
 
+static void ReportScoresUtilData(RaceType_Def to,
+                                 const struct State* pState,
+                                 const struct Config* pConfig,
+                                 const struct VoteItem* votes,
+                                 size_t numPlayers)
+{
+    Uns32 numOwnedCactuses[RACE_NR];
+    Uns32 numBuiltCactuses[RACE_NR];
+    Uns32 score[RACE_NR];
+
+    // Initialize to "unknown"
+    for (size_t i = 0; i < RACE_NR; ++i) {
+        numOwnedCactuses[i] = numBuiltCactuses[i] = score[i] = (Uns32) -1;
+    }
+
+    // Populate
+    for (size_t i = 0; i < numPlayers; ++i) {
+        const RaceType_Def r = votes[i].Player;
+        if (r > 0 && r <= RACE_NR) {
+            numOwnedCactuses[r-1] = State_NumOwnedCactuses(pState, r);
+            numBuiltCactuses[r-1] = State_NumBuiltCactuses(pState, r);
+            score[r-1] = MAX(State_Score(pState, r), 0);
+        }
+    }
+
+    // Send
+    const struct Language*const lang = GetLanguageForPlayer(to);
+    Util_PlayerScore(to, lang->Score_NumOwnedCactuses, SCORE_NUM_OWNED_CACTUSES, -1, &numOwnedCactuses);
+    Util_PlayerScore(to, lang->Score_NumBuiltCactuses, SCORE_NUM_BUILT_CACTUSES, -1, &numBuiltCactuses);
+    Util_PlayerScore(to, lang->Score_Score, SCORE_SCORE, pConfig->FinishScore, &score);
+}
+
 static void SaveRefereeFile(FILE* fp, const struct VoteItem* votes, size_t numPlayers, Boolean isFinished)
 {
     for (size_t i = 0; i < numPlayers; ++i) {
@@ -365,6 +399,7 @@ void ProcessVotes(struct State* pState, const struct Config* pConfig, Boolean wr
         const RaceType_Def r = (RaceType_Def) i;
         if (PlayerIsActive(r)) {
             ReportScores(r, pState, votes, numPlayers, totalVotes, yesVotes);
+            ReportScoresUtilData(r, pState, pConfig, votes, numPlayers);
         }
     }
 
@@ -391,6 +426,7 @@ static void SendScoreReport(const struct State* pState, RaceType_Def player)
     const int numVotes         = GetPlayerVotes(pState, player);
 
     Message_ScoreReport(player, numOwnedCactuses, numBuiltCactuses, score, hasVote, numVotes);
+    Util_Score(player, numOwnedCactuses, numBuiltCactuses, score, hasVote);
 }
 
 /* Send inventory report to single player.
@@ -406,13 +442,24 @@ static void SendInventoryReport(const struct State* pState, RaceType_Def player)
         if (State_PlanetHasCactus(pState, planetId)
             && (PlanetOwner(planetId) == player || State_CactusBuilder(pState, planetId) == player))
         {
-            const char* what = State_PlanetHasFullCactus(pState, planetId)
-                ? "cactus"
-                : State_CactusBuilder(pState, planetId) != player
-                ? "foreign"
-                : PlanetOwner(planetId) == player
-                ? "stump"
-                : "exile";
+            // Determine type
+            enum CactusType type;
+            const char* what;
+            if (State_PlanetHasFullCactus(pState, planetId)) {
+                what = "cactus";
+                type = Cactus_Full;
+            } else if (State_CactusBuilder(pState, planetId) != player) {
+                what = "foreign";
+                type = Cactus_Foreign;
+            } else if (PlanetOwner(planetId) == player) {
+                what = "stump";
+                type = Cactus_Stump;
+            } else {
+                what = "exile";
+                type = Cactus_Exile;
+            }
+
+            // Send message
             char tmp[100];
             sprintf(tmp, "%4d  %-20s  %s\n", planetId, PlanetName(planetId, 0), what);
             Message_Add(&m, tmp);
@@ -426,6 +473,9 @@ static void SendInventoryReport(const struct State* pState, RaceType_Def player)
             } else {
                 hasText = True;
             }
+
+            // Send utility data record
+            Util_Cactus(player, planetId, type);
         }
     }
 
