@@ -120,10 +120,13 @@ To vote for the end of the game, send a message
 
     cactus: vote yes
 
-to yourself.
+to yourself. A vote is "sticky" and will be applied for this and
+future turns. To retract a vote, send a message
 
-You cannot vote for the end of the game when you are still building
-cactuses. Any `build` command invalidates a `vote yes`.
+    cactus: vote no
+
+You cannot vote for the end of the game while you are still building
+cactuses. Any `build` command (temporarily) invalidates a `vote yes`.
 
 Alternatively, the game will end when someone reaches `FinishScore`.
 
