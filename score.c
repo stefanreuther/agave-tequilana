@@ -38,8 +38,10 @@ static int Power(int a, int b, int exp)
     }
 
     // Negative exponent
-    for (int i = 0; i > exp; --i) {
-        a /= b;
+    if (b != 0) {
+        for (int i = 0; i > exp; --i) {
+            a /= b;
+        }
     }
     return a;
 }
