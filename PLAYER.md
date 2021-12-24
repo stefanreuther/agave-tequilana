@@ -216,7 +216,7 @@ Configuration
 
 + `TurnMinusScore` (integer, default: -1)
 
-  Score given to the builder of a stump that someone else owned (i.e.
+  Score given to the builder of a stump that someone else owns (i.e.
   captured). Only relevant when `KeepCactus=Yes`.
 
 
@@ -228,6 +228,12 @@ Configuration
 + `LostScore` (integer, default: -15)
 
   Score given to the player who loses a planet with a cactus.
+
+
++ `DeadScore` (integer, default: -25)
+
+  Score given to the player who loses a planet with a cactus entirely,
+  i.e. planet becomes unowned.
 
 
 ### Building
@@ -247,6 +253,16 @@ Configuration
 + `ClansRequired` (integer, default: 0)
 
   Minimum number of colonist clans required to build a cactus.
+
+
++ `CactusLimit` (integer, default: 0)
+
+  Maximum number of cactuses each player can build. Stumps count
+  against that limit even if the player who built them does not
+  currently control them.
+
+  The default value 0 (can also be spelled `No`) means the number of
+  cactuses is not limited.
 
 
 + `CostAdditive` (integer, default: 0), `CostMultiplier` (integer,
