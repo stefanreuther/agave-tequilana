@@ -89,6 +89,9 @@ static void DoHostAction(Boolean integrate)
 
     DoSendConfig(&c);
     ProcessCommands(pState, &c);
+    if (c.ProcessMessages) {
+        ProcessMessages(pState, &c);
+    }
     ProcessBuildRequests(pState, &c);
     ComputeScores(pState, &c);
     ProcessVotes(pState, &c, integrate);

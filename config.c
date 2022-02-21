@@ -30,6 +30,7 @@ struct Definition {
 
 static const struct Definition CONFIG_DEFINITION[] = {
     CONFIG(Boolean, KeepCactus),
+    CONFIG(Boolean, ProcessMessages),
     CONFIG(Int16, TurnScore),
     CONFIG(Int16, TurnOwnerScore),
     CONFIG(Int16, TurnPlusScore),
@@ -121,6 +122,7 @@ void Config_Init(struct Config* p)
 {
     // General
     p->KeepCactus = False;
+    p->ProcessMessages = True;
 
     // Scoring
     p->TurnScore = 1;

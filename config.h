@@ -12,6 +12,7 @@
 struct Config {
     // General
     Boolean KeepCactus;
+    Boolean ProcessMessages;
 
     // Scoring
     Int16 TurnScore;

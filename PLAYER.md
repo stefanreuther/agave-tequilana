@@ -143,6 +143,32 @@ Friendly Codes
 
 
 
+Classic Message Processing
+--------------------------
+
+The "official" way to give commands is to use the `cactus:` prefix.
+
+When the `ProcessMessages` option enabled (default), Agave Tequilana
+will emulate Cactus2001 by also reading "normal" player messages a
+player sends to themselves. When PHost is being used, these need to
+start with a '<' marker, but otherwise do not require a prefix:
+
+    <Command:>
+    defhw 13
+
+(or `build 13`) will a cactus on planet 13. In addition, forwarding a
+planet to yourself in VPA will also cause a cactus to be built:
+
+    <<< VPA Data Transmission >>>
+    OBJECT: Planet 13
+
+The 'vote' command is also recognized this way.
+
+Unlike "official" command messages, these messages will echo back to
+you.
+
+
+
 Host Order
 ----------
 
@@ -192,6 +218,15 @@ Configuration
 
   When enabled, a stump remains after capturing a planet. When
   disabled, the cactus will be destroyed.
+
+
++ `ProcessMessages` (boolean, default: `True`)
+
+  When enabled, also process messages not sent through the regular
+  Command Processor interface; see "Classic Message Processing" above.
+
+  If this feature makes problems, it can be turned off with this
+  option.
 
 
 ### Scoring
