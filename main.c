@@ -22,6 +22,8 @@
 static const char*const BANNER = "Agave Tequilana - A Tequila War Variant";
 static const char*const LOG_FILE = "cactus.log";
 
+/** Mode of operation.
+    @private */
 enum Mode {
     HostAction,
     DumpStatus,
@@ -38,7 +40,7 @@ static void PrintUsage(FILE* stream, const char* name)
             "  -ds     dump status\n"
             "  -i      c2host integration (c2ref.txt, c2score.txt)\n"
             "  --help  this message\n\n"
-            "Written in 2021 by Stefan Reuther <streu@gmx.de> for PlanetsCentral\n"
+            "Written in 2021-2022 by Stefan Reuther <streu@gmx.de> for PlanetsCentral\n"
             "Based upon Cactus 2001++ by K.Kopytov, E.Goroh\n",
             BANNER, VERSION, name);
 }
@@ -137,8 +139,12 @@ static void DoDumpStatus()
     State_Destroy(pState);
 }
 
-/*
- *  Main Entry Point
+/**
+ *  Main Entry Point.
+ *
+ *  @param argc Number of elements in argv
+ *  @param argv Command line arguments
+ *  @return zero on success
  */
 
 int main(int argc, char** argv)

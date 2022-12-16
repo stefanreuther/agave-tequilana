@@ -8,6 +8,8 @@
 #include "utildata.h"
 #include "version.h"
 
+/** Get size of an array.
+    @private */
 #define DIM(x) (sizeof(x)/sizeof(x[0]))
 
 /* Player Score, standard record type */

@@ -72,8 +72,8 @@ This add-on re-implements the Tequila War / Cactus scoring system
 (cact2001.zip) by Eugene Goroh and Konst Kopytov, translated by Gleb
 Mazursky. It uses the same file formats.
 
-Written in 2021 by Stefan Reuther <streu@gmx.de> for PlanetsCentral
-<https://planetscentral.com/>.
+Written in 2021-2022 by Stefan Reuther <streu@gmx.de> for
+PlanetsCentral <https://planetscentral.com/>.
 
 This source code is licensed under a permissive BSD license. Note that
 linking against the PDK will produce a binary that is covered by the

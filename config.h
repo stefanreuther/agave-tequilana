@@ -11,33 +11,33 @@
     Member names match the names in the configuration file. */
 struct Config {
     // General
-    Boolean KeepCactus;
-    Boolean ProcessMessages;
+    Boolean KeepCactus;                 ///< True to support cactus stumps.
+    Boolean ProcessMessages;            ///< True to process messages; false to process only commands.
 
     // Scoring
-    Int16 TurnScore;
-    Int16 TurnOwnerScore;
-    Int16 TurnPlusScore;
-    Int16 TurnMinusScore;
-    Int16 CaptureScore;
-    Int16 LostScore;
-    Int16 DeadScore;
+    Int16 TurnScore;                    ///< Points per turn for normal cactus.
+    Int16 TurnOwnerScore;               ///< Points per turn for stump that you built.
+    Int16 TurnPlusScore;                ///< Points per turn for captured stump.
+    Int16 TurnMinusScore;               ///< Points per turn for lost stump.
+    Int16 CaptureScore;                 ///< Points per turn for capturing a cactus.
+    Int16 LostScore;                    ///< Points per turn for losing a cactus to someone else.
+    Int16 DeadScore;                    ///< Points per turn for losing a cactus.
 
     // Building
-    Boolean NeedBase;
-    Boolean RebuildCactus;
-    Int16 ClansRequired;
-    Int16 CactusLimit;
-    Int16 CostAdditive;
-    Int16 CostMultiplier;
-    Int16 CostPower;
-    Int16 MinScore;
+    Boolean NeedBase;                   ///< True if building a cactus needs a base.
+    Boolean RebuildCactus;              ///< True to allow building over a stump.
+    Int16 ClansRequired;                ///< Clans required to build a cactus.
+    Int16 CactusLimit;                  ///< Maximum number of cactuses per player.
+    Int16 CostAdditive;                 ///< Flat score cost per cactus.
+    Int16 CostMultiplier;               ///< Multiplicative score cost per cactus.
+    Int16 CostPower;                    ///< Exponential score cost per cactus.
+    Int16 MinScore;                     ///< Minimum score required to build cactus.
 
     // Voting
-    Boolean EnableFinish;
-    Int16 VoteTurn;
-    Int16 FinishPercent;
-    Int16 FinishScore;
+    Boolean EnableFinish;               ///< True to enable voting.
+    Int16 VoteTurn;                     ///< Turn when to enable voting.
+    Int16 FinishPercent;                ///< Percentage of votes that ends the game.
+    Int16 FinishScore;                  ///< Game ends when player reaches this score.
 };
 
 /** Initialize configuration.

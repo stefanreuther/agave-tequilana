@@ -12,20 +12,26 @@
  *  Definition of config layout
  */
 
-const char*const CONFIG_FILE_NAME = "cactus.ini";
-const char*const CONFIG_FILE_SECTION = "CACTUS";
+static const char*const CONFIG_FILE_NAME = "cactus.ini";
+static const char*const CONFIG_FILE_SECTION = "CACTUS";
 
+/** Configuration element type.
+    @private */
 enum Type {
     tBoolean,
     tInt16
 };
 
+/** Configuration element definition.
+    @private */
 struct Definition {
     const char* Name;
     enum Type   Type : 16;
     size_t      Offset : 16;
 };
 
+/** Define configuration element.
+    @private */
 #define CONFIG(type, x) { #x, t##type, offsetof(struct Config, x) }
 
 static const struct Definition CONFIG_DEFINITION[] = {

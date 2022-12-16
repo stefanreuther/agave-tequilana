@@ -12,13 +12,13 @@ static const char*const STATE_FILE_NAME = "cactus.hst";
     (I generally like to use the term 'player' instead of 'race',
     but 'race' has a better hamming distance to 'planet' here.) */
 struct RaceArray {
-    Int16 Values[RACE_NR];
+    Int16 Values[RACE_NR];           ///< Value (score, count, etc.).
 };
 
 /** Planet Array: per-planet integers.
     Used to store owners or flags, thus, a char is sufficient. */
 struct PlanetArray {
-    char Values[PLANET_NR];
+    char Values[PLANET_NR];          ///< Value (owner, flag).
 };
 
 /** Overall State.

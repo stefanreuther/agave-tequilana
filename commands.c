@@ -10,9 +10,10 @@
 #include "message.h"
 #include "util.h"
 
-#define MSG_TERMINATOR 26
-#define MSG_OFFSET 13
+static const char MSG_TERMINATOR = 26;
+static const char MSG_OFFSET = 13;
 
+/** @private */
 struct CommandInfo {
     struct State* pState;
     const struct Config* pConfig;

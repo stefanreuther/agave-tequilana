@@ -25,8 +25,16 @@ Boolean PlanetHasFCode(Uns16 planetId, const char* expected);
     @return Suffix on success, otherwise null */
 const char* StrStartsWith(const char* line, const char* expectedPrefix);
 
-
+/** Get minimum of two values.
+    @param a First value
+    @param b Second value
+    @return smaller of a,b */
 #define MIN(a,b) ((a) < (b) ? (a) : (b))
+
+/** Get maximum of two values.
+    @param a First value
+    @param b Second value
+    @return bigger of a,b */
 #define MAX(a,b) ((a) > (b) ? (a) : (b))
 
 #endif

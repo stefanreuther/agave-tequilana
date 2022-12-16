@@ -9,6 +9,7 @@
 #include "message.h"
 #include "util.h"
 
+/** @private */
 struct LocalState {
     struct Message m;
     RaceType_Def player;

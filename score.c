@@ -18,6 +18,8 @@
  *  Buiding
  */
 
+/** Result for ProcessBuildRequest.
+    @private */
 enum Result {
     Success,
     Fail_NotOwned,
@@ -236,6 +238,7 @@ void ComputeScores(struct State* pState, const struct Config* pConfig)
  *  Voting
  */
 
+/** @private */
 struct VoteItem {
     RaceType_Def Player;
     int Votes;
