@@ -12,6 +12,10 @@ if ($V{WITH_COVERAGE}) {
 }
 $V{CFLAGS} = $V{CXXFLAGS}; # d'ooh
 
+# HACK/workaround to get -lpdk and -lm in correct order
+my $save = $V{LIBS};
+$V{LIBS} = '';
+
 # PDK
 find_library('WITH_PDK',
              libs => '-lpdk',
@@ -20,6 +24,7 @@ find_library('WITH_PDK',
              dir => add_variable(PDK_DIR => ''));
 die "Unable to find PDK; this is required"
     if !$V{WITH_PDK};
+$V{LIBS} = "$V{LIBS} $save";
 
 # Compile stuff
 my @SOURCE = qw(
